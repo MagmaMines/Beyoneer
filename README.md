@@ -15,4 +15,7 @@ Load Tailwind, Bootstrap, Three.js, or p5.js instantly without installing a sing
 Integrated console logs warnings, errors, and info directly into your workspace. Never code blind on mobile again.
 ## Instant Redirection
 Our unique engine automatically resolves local asset paths into Base64 data streams, ensuring your media works offline and online instantly.
+## Asset Marketplace
+Access our community hub to download high-end templates and submit your own creative projects.
 
+All Rights Reserved ©️
