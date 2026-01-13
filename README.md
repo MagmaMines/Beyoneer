@@ -1,21 +1,131 @@
-# Beyoneer IDE ©️
-***Documention repository***
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/16d2483b-d0e3-4104-9078-f91e797efd7f"
+       width="160"
+       style="border-radius:24px"
+       alt="Beyoneer IDE Logo">
+</p>
 
-###            Beyond Ide,
-###            WebDev Needs.
+<h1 align="center">Beyoneer IDE </h1>
 
+<p align="center">
+  <b>Beyond IDE,<br/>WebDev Needs.</b>
+</p>
 
+<p align="center">
+  The high-performance <b>web editor</b> that brings desktop-grade redirection,<br/>
+  real-time compilation, and smart asset handling directly to your browser.
+</p>
 
-The high-performance **editor** that brings desktop-grade redirection and real-time compilation to your mobile browser. Built by developers, for developers.
+<p align="center">
+  <a href="https://beyoneer.netlify.app/"> IDE</a> •
+  <a href="https://github.com/MagmaMines/Beyoneer"> GitHub</a> •
+  <a href="https://discord.gg/MVKGsBgmkm"> Discord</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Editor-Web IDE-blue?style=flat-square">
+  <img src="https://img.shields.io/badge/Mobile-Optimized-purple?style=flat-square">
+  <img src="https://img.shields.io/badge/Status-Active-success?style=flat-square">
+  <img src="https://img.shields.io/badge/Frontend-Only-orange?style=flat-square">
+</p>
 
 ---
-## Zero Dependency
-Load Tailwind, Bootstrap, Three.js, or p5.js instantly without installing a single package. The web is your library.
-## Real-time Debugging
-Integrated console logs warnings, errors, and info directly into your workspace. Never code blind on mobile again.
-## Instant Redirection
-Our unique engine automatically resolves local asset paths into Base64 data streams, ensuring your media works offline and online instantly.
-## Asset Marketplace
-Access our community hub to download high-end templates and submit your own creative projects.
 
-All Rights Reserved ©️
+##  About Beyoneer IDE
+
+**Beyoneer IDE** is a powerful **browser-based development environment** built to deliver a smooth,  
+real-world web development experience — even on **mobile devices**.
+
+No installations.  
+No setup.  
+Just code.
+
+Built by developers, for developers.
+
+---
+
+##  Key Features
+
+###  Normal HTML + Inbuilt Type System
+- Write **standard HTML, CSS & JavaScript**
+- Supports **inbuilt Type system**
+- No learning curve — works like real web files
+
+---
+
+###  Real-Time Compilation & Preview
+- Instant live preview
+- Automatic refresh on changes
+- Works seamlessly across files
+
+---
+
+###  Integrated Debug Console
+- Live `console.log`, errors & warnings
+- Clean debugging panel
+- Mobile-friendly debugging experience
+
+---
+
+###  Smart Asset Redirection Engine
+- Automatically converts local assets into **Base64**
+- Images, audio & media work:
+  - Offline
+  - Online
+  - Without broken paths
+
+> A core feature that makes Beyoneer different.
+
+---
+
+###  Built-in Marketplace Libraries
+Load advanced libraries **directly from Beyoneer Marketplace**:
+
+- 📊 **Chart.js**
+- 🎨 **anime.js**
+- 🧊 **react.js**
+- 🎨 **Glassmorphic Web**
+- 🧱 **5+ loading pages**
+
+One Click. Download. Use anywhere.
+Just download
+& build.
+
+---
+
+###  Multi-File Project System
+- Create & link multiple HTML files
+- Tabs for fast switching
+- Realistic project structure
+
+---
+
+###  Mobile-First Design
+Beyoneer is fully optimized for:
+- 📱 Android browsers
+- 📲 Tablets
+- 💻 Desktop
+
+Turn any device into a coding machine.
+
+---
+
+##  Tech Stack
+
+- **HTML5**
+- **CSS3**
+- **JavaScript (Vanilla)**
+- **LocalStorage Engine**
+- **Modern Browser APIs**
+
+> 100% frontend. No backend required.
+
+---
+
+##  Project Links
+
+-  [**Live IDE**](https://beyoneer.netlify.app/)
+-  [**GitHub Repo**](https://github.com/MagmaMines/Beyoneer)
+-  [**Discord Community**](https://discord.gg/MVKGsBgmkm)
+
+
