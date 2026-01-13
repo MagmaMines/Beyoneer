@@ -106,7 +106,18 @@ Beyoneer is fully optimized for:
 - 📲 Tablets
 - 💻 Desktop
 
-Turn any device into a coding machine.
+![Pj5.js template in editor mode.](https://github.com/user-attachments/assets/40d3cb50-0888-4ac0-80de-2589ed0b4c02)
+<p align="center">
+ Pj5.js template inbuilt. 
+</p>
+
+![An example how powerful is it.](https://github.com/user-attachments/assets/0d7510cc-45a4-434b-9a81-b4e8c655b192)
+<p align="center">
+Example how powerful is it.
+</p>
+
+
+**Turn any device into a coding machine.**
 
 ---
 
