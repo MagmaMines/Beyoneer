@@ -1,0 +1,11 @@
+Beyoneer IDE – All Rights Reserved License
+
+© [2026] MagmaMinesTeam. All rights reserved.
+
+Beyoneer IDE and all associated assets, including but not limited to source code, design elements, branding, documentation, and media, are the exclusive intellectual property of MagmaMinesTeam.
+
+Unauthorized reproduction, distribution, modification, reverse engineering, or any form of commercial or non-commercial use without explicit written permission from MagmaMinesTeam is strictly prohibited.
+
+Beyoneer IDE is provided “as is” without warranty of any kind, express or implied. MagmaMinesTeam shall not be held liable for any damages arising from the use or inability to use this software.
+
+For licensing inquiries, contributions, or partnership opportunities, please contact: help.magmamine@gmail.com
