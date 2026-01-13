@@ -40,7 +40,7 @@ No installations.
 No setup.  
 Just code.
 
-Built by developers, for developers.
+Built-in templates & online marketplace.
 
 ---
 
