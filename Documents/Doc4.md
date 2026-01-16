@@ -9,6 +9,10 @@
 
 - ### how to submit templates to marketplace.
 - contact we on [discord](https://discord.gg/MVKGsBgmkm) or help.magmamine@gmail.com
+
+ 
+  #### For discord submission:
+  
 - you'll see Beyoneer-global name  channel. fill the requirements & submit.
 - You can earn from our 2Links Policy/Option.
   
