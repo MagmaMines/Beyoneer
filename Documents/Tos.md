@@ -1,3 +1,5 @@
+### Terms of service 
+
 By using Beyoneer v1.11, whether through the Web Editor, the Marketplace, or the Android APK, you agree to the following terms set by MagmaMinesTeam.
 
 1. Editor Usage (Offline)
