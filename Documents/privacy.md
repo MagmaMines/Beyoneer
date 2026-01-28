@@ -1,4 +1,4 @@
-Beyoneer v1.11 (developed by MagmaMinesTeam) operates on a dual-logic system. While we provide online community features, the core development experience remains strictly local and private.
+Beyoneer IDE (developed by MagmaMinesTeam) operates on a dual-logic system. While we provide online community features, the core development experience remains strictly local and private.
 
 1. The Offline IDE Core
 The primary Editor and the Beyoneer Android APK Workspace are designed to function as offline-first environments. Your source code, logic, and project assets are never uploaded to our servers.
