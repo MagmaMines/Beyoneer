@@ -1,6 +1,6 @@
 ### Terms of service 
 
-By using Beyoneer v1.11, whether through the Web Editor, the Marketplace, or the Android APK, you agree to the following terms set by MagmaMinesTeam.
+By using Beyoneer IDE, whether through the Web Editor, the Marketplace, or the Android APK, you agree to the following terms set by MagmaMinesTeam.
 
 1. Editor Usage (Offline)
 Beyoneer is a local-first development tool. Users are granted a non-exclusive license to use the Redirection Engine for coding and previewing projects.
