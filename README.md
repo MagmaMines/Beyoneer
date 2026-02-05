@@ -106,12 +106,14 @@ Beyoneer is fully optimized for:
 - 📲 Tablets
 - 💻 Desktop
 
-![Pj5.js template in editor mode.](https://github.com/user-attachments/assets/40d3cb50-0888-4ac0-80de-2589ed0b4c02)
+<img width="720" height="1336" alt="/editor page with settings opened" src="https://github.com/user-attachments/assets/7ef60e31-de54-41bb-82b3-982ecf0a2414" />
+
 <p align="center">
- Pj5.js template inbuilt. 
+ Hex Sqaure & ProUI inbuilt.
 </p>
 
-![An example how powerful is it.](https://github.com/user-attachments/assets/0d7510cc-45a4-434b-9a81-b4e8c655b192)
+<img width="720" height="1306" alt="Index page of Beyoneer ide or landing page" src="https://github.com/user-attachments/assets/a9ee6641-4303-4b47-a153-c5eed420ddfa" />
+
 <p align="center">
 Example how powerful is it.
 </p>
@@ -139,4 +141,6 @@ Example how powerful is it.
 -  [**GitHub Repo**](https://github.com/MagmaMines/Beyoneer)
 -  [**Discord Community**](https://discord.gg/MVKGsBgmkm)
 
+---
 
+> Beyoneer IDE © By **MagmaMinesTeam**
