@@ -81,8 +81,8 @@ Built-in templates & online marketplace.
 ###  Built-in Marketplace Libraries
 Load advanced libraries **directly from Beyoneer Marketplace**:
 
-- 📊 **Chart.js**
-- 🎨 **anime.js**
+- 📊 **Wikipedia Clone**
+- 🎨 **Vue.js**
 - 🧊 **react.js**
 - 🎨 **Glassmorphic Web**
 - 🧱 **5+ loading pages**
