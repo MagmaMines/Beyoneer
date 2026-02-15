@@ -126,6 +126,7 @@ Example how powerful is it.
 ##  Tech Stack
 
 - **HTML5**
+- **Markdown (codemirror)**
 - **CSS3**
 - **JavaScript (Vanilla)**
 - **LocalStorage Engine**
