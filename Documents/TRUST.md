@@ -25,6 +25,10 @@
   <img src="https://builtbyme.io/logo.png" alt="Featured on StartupDirectory" width="300" />
 </a>
 
+- **SaaS Hub**
+  
+ <a href='https://www.saashub.com/beyoneer-ide?utm_source=badge&utm_campaign=badge&utm_content=beyoneer-ide&badge_variant=color&badge_kind=approved' target='_blank'><img src="https://cdn-b.saashub.com/img/badges/approved-color.png?v=1" alt="Beyoneer IDE badge"/></a>
+
 - **VibeRank.dev**
 <a href="https://viberank.dev/apps/Beyoneer%20IDE%20" target="_blank" rel="noopener noreferrer"><img src="https://viberank.dev/badge?app=Beyoneer%20IDE%20&theme=dark" alt="Beyoneer IDE  on VibeRank" /></a>
 
