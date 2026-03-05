@@ -73,6 +73,7 @@ The IDE's import system is designed to handle a broad range of functional and sy
 ### 🌐 Explore More
 * **Official Site:** [beyoneer.xyz](https://beyoneer.xyz)
 * **GitHub Repository:** [MagmaMines/Beyoneer](https://github.com/MagmaMines/Beyoneer)
+* **Documentation:** [Read Docs](https://github.com/MagmaMines/Beyoneer/tree/main/Documents)
 * **Community:** [Join us on Discord](https://discord.gg/MVKGsBgmkm)
 
 ---
