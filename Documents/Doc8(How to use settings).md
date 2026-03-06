@@ -9,6 +9,7 @@
   - Font Text Size -  we know small screens problem so we added options like medium,big,very big,small etc.
   - Hex Sqaure - this feature previews the hex color in a sqaure & you can use normal names eg (red,blue,yellow).
   - File size - See file sizes.
+  - Pip packages.
   - Animations - On/off animations.
  
   > Beyoneer IDE © By **MagmaMinesTeam**
