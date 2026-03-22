@@ -33,7 +33,7 @@
 
 ## 🚀 Native Project Templates
 
-Beyoneer v1.14 goes beyond simple web files with native support for creating complex project structures:
+Beyoneer goes beyond simple web files with native support for creating complex project structures:
 
 * **Web Frameworks:** Vanilla HTML/CSS/JS and **Three.js 3D World** templates.
 * **Systems Programming:** Bootstrap your development with **C++**, **Rust**, and **Go** project templates.
