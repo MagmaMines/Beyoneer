@@ -1,7 +1,7 @@
 # BPI — Beyoneer Programming Interface
 ### Official Developer Reference · IDE · Audited & Corrected
 
-> **Beyoneer IDE** is a full-featured, browser-based code editor. The **BPI** (Beyoneer Programming Interface) is its plugin and scripting API — a collection of powerful namespaces that let you extend, automate, and hook into every part of the IDE from JavaScript.
+> **Beyoneer IDE** is a full-featured, browser-based IDE. The **BPI** (Beyoneer Programming Interface) is its plugin and scripting API — a collection of powerful namespaces that let you extend, automate, and hook into every part of the IDE from JavaScript.
 
 ---
 
