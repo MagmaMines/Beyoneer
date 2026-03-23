@@ -1,5 +1,5 @@
 # BPI — Beyoneer Programming Interface
-### Official Developer Reference · v1.15 · Audited & Corrected
+### Official Developer Reference · API · Audited & Corrected
 
 > **Beyoneer IDE** is a full-featured, browser-based code editor. The **BPI** (Beyoneer Programming Interface) is its plugin and scripting API — a collection of powerful namespaces that let you extend, automate, and hook into every part of the IDE from JavaScript.
 
@@ -2166,7 +2166,7 @@ BPI.Bench.end('myHeavyOp');  // automatically logs timing
 
 ---
 
-## Changelog — v1.15 Patch Notes
+## Changelog —  Patch Notes
 
 These bugs were found during a full source audit and fixed in the patched HTML:
 
@@ -2209,5 +2209,5 @@ Six brand-new BPI modules and numerous extensions to existing ones:
 
 ---
 
-*BPI Documentation · Beyoneer IDE v1.15 (Patched) · By **MagmaMinesTeam***  
+*BPI Documentation · Beyoneer IDE · By **MagmaMinesTeam***  
 *© MagmaMinesTeam — [Help.magmamine@gmail.com](mailto:Help.magmamine@gmail.com) — [beyoneer.xyz](https://beyoneer.xyz)*
