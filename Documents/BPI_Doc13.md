@@ -3,7 +3,7 @@
 
 > **Beyoneer IDE** is a full-featured, browser-based code editor. The **BPI** (Beyoneer Programming Interface) is its plugin and scripting API — a collection of powerful namespaces that let you extend, automate, and hook into every part of the IDE from JavaScript.
 >
-> **This document was written directly from the editor source.** Every function name, signature, and behaviour reflects exactly what is defined in `beyoneer_ide_v1_15_git_deep.html`. Nothing is invented or inferred.
+> **This document was written directly from the editor source.** Every function name, signature, and behaviour reflects exactly what is defined in `editor` Nothing is invented or inferred.
 
 ---
 
