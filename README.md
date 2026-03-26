@@ -35,6 +35,7 @@
 Beyoneer goes beyond simple web files with native support for creating complex project structures:
 
 * **Web Frameworks:** Vanilla HTML/CSS/JS and **Three.js 3D World** templates.
+* **NodeJS:** Full node access, no limit and privacy offcourse.
 * **Systems Programming:** Bootstrap your development with **C++**, **Rust**, and **Go** project templates.
 * **Enhanced Rust Support:** Features a custom `rust_enhanced` mode that provides distinct highlighting for **lifetimes** (`'a`), **macros** (`name!`), and **attributes** (`#[...]`).
 
@@ -45,7 +46,7 @@ Beyoneer goes beyond simple web files with native support for creating complex p
 The IDE's import system is designed to handle a broad range of functional and system-level languages. You can bulk-import your existing codebase using the following supported extensions:
 
 ### Supported Code Formats
-* **Core Web:** `.html`, `.css`, `.js`, `.ts`
+* **Core Web:** `.html`, `.css`, `.js`, `.ts`,`.jsx`,`.tsx`
 * **Functional & Systems:** `.c`, `.cpp`, `.rs` (Rust), `.go`, `.java`
 * **Scripting & Ops:** `.py` (Python), `.sh` (Shell)
 * **Binary & Documentation:** `.wasm`, `.txt`, `.md`
@@ -65,7 +66,7 @@ The IDE's import system is designed to handle a broad range of functional and sy
 * **Pro UI (Black Theme):** An ultra-dark black interface designed for professional environments.
 * **Color Hex Squares:** Visual color swatches rendered directly in your code for faster CSS styling.
 * **IndexedDB Storage:** Move beyond `localStorage` limits with a high-capacity database backend for large projects.
-* **Interactive Terminal:** A fully functional terminal for running commands and managing your project environment.
+* **Interactive Terminal:** A fully functional terminal for running commands and managing your project environment and run real **NodeJS** for free, no limits and privacy offcourse!.
 
 ---
 
