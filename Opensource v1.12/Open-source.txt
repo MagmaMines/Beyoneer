@@ -1,0 +1,9 @@
+In this folder you'll get "v1.12" opensourced.
+Versions 1.13,1.14,.1
+15 are "not" opensourced.
+---
+
+You can use this version for commerical use, modification and private use.
+
+you just need to give credit to "MagmaMinesTeam or Beyoneer IDE" on the platform where you sharing it.
+
