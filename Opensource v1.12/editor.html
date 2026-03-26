@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="icon.png" type="image/x-icon">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Beyoneer IDE | v1.12</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/tomorrow-night-eighties.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/show-hint.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/fold/foldgutter.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/markdown/markdown.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closetag.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/xml-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/html-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/css-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/javascript-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/fold/foldcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/fold/foldgutter.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+
+    <style>
+        /* --- THEME & VARIABLES --- */
+        :root {
+            --bg-dark: #09090b;
+            --bg-panel: #18181b;
+            --bg-editor: #2d2d2d;
+            --tab-bg: #1f1f22;
+            --tab-active: #2d2d2d;
+            --primary: #3b82f6;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --border: #27272a;
+            --folder-color: #fbbf24;
+            --error: #f87171;
+            --success: #4ade80;
+        }
+
+        .pro-ui {
+            --bg-dark: #000000;
+            --bg-panel: #0a0a0a;
+            --bg-editor: #1a1a1a;
+            --tab-bg: #050505;
+            --border: #1a1a1a;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: var(--bg-dark); color: var(--text-main);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.no-animations * {
+            transition: none !important;
+            animation: none !important;
+        }
+
+        /* --- HEADER --- */
+        header {
+            height: 48px; background: var(--bg-panel); border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 20;
+            transition: background 0.3s;
+        }
+        .logo { font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; font-size: 1.1rem; letter-spacing: -0.5px; }
+        .toolbar { display: flex; gap: 8px; }
+
+        button {
+            background: #27272a; border: 1px solid var(--border); color: var(--text-main);
+            padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+            display: flex; align-items: center; gap: 6px; transition: 0.2s;
+        }
+        button:hover { background: #3f3f46; border-color: #52525b; }
+        button.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+        button.icon-btn { padding: 10px; border: none; background: transparent; font-size: 1.1rem; color: var(--text-muted); }
+        button.icon-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+        /* --- LAYOUT --- */
+        .workspace { display: flex; flex: 1; height: calc(100vh - 48px); position: relative; }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px; background: var(--bg-panel); border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; transition: transform 0.3s ease, background 0.3s;
+            z-index: 15; flex-shrink: 0;
+        }
+        .sidebar-header { padding: 10px; border-bottom: 1px solid var(--border); transition: border-color 0.3s; }
+        .sidebar-header select { width: 100%; background: #000; color: #fff; border: 1px solid var(--border); padding: 6px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 8px; }
+
+        .cm-color-swatch{
+          display:inline-block;
+          width:12px;
+          height:12px;
+          margin-right:4px;
+          border-radius:2px;
+          border:1px solid #555;
+          vertical-align:middle;
+          pointer-events:none;
+        }
+        
+        .sidebar-actions { display: flex; gap: 4px; justify-content: flex-end; flex-wrap: wrap;}
+        
+        .file-explorer { flex: 1; overflow-y: auto; padding: 5px 0; }
+        
+        .tree-node {
+            padding: 6px 12px; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; 
+            gap: 6px; font-size: 0.85rem; user-select: none; transition: background 0.2s;
+        }
+        .tree-node:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .tree-node.active { background: rgba(59, 130, 246, 0.15); color: var(--primary); border-left: 2px solid var(--primary); }
+        
+        .file-size {
+            margin-left: auto;
+            font-size: 0.7rem;
+            color: #666;
+        }
+
+        .folder-header { display: flex; align-items: center; gap: 5px; font-weight: 600; color: #ddd; }
+        .folder-content { padding-left: 14px; border-left: 1px solid #333; margin-left: 7px; display: none; }
+        .folder-content.open { display: block; }
+        .rotate { transform: rotate(90deg); transition: 0.2s; }
+
+        /* EDITOR AREA */
+        .editor-wrapper { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; background: var(--bg-editor); transition: background 0.3s; }
+        
+        .tab-bar {
+            height: 36px; background: var(--bg-panel); display: flex; align-items: flex-end; overflow-x: auto;
+            border-bottom: 1px solid var(--bg-editor); transition: background 0.3s;
+        }
+        .tab {
+            height: 32px; padding: 0 10px; display: flex; align-items: center; gap: 8px;
+            background: var(--tab-bg); color: var(--text-muted); font-size: 0.8rem; cursor: pointer;
+            border-right: 1px solid var(--border); border-top: 1px solid transparent; min-width: 100px; max-width: 180px;
+            transition: background 0.2s;
+        }
+        .tab.active { background: var(--bg-editor); color: #fff; border-top-color: var(--primary); }
+        .tab-close:hover { color: #ef4444; }
+
+        .CodeMirror { height: 100%; font-family: 'Consolas', monospace; line-height: 1.5; }
+        .image-preview { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #111; color: #666; display: none; }
+        .image-preview img { max-width: 90%; max-height: 90%; border: 1px solid #333; }
+
+        .markdown-preview {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: var(--bg-editor);
+            color: var(--text-main);
+            display: none;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .markdown-preview h1, .markdown-preview h2, .markdown-preview h3 {
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            color: var(--primary);
+        }
+
+        .markdown-preview code {
+            background: rgba(255,255,255,0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .markdown-preview pre {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        /* BOTTOM DEBUGGER PANEL */
+        .bottom-panel {
+            height: 200px; background: var(--bg-panel); border-top: 1px solid var(--border);
+            position: absolute; bottom: 0; width: 100%; z-index: 25;
+            display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.3s, background 0.3s;
+        }
+        .bottom-panel.open { transform: translateY(0); }
+        .panel-header { padding: 5px 10px; background: #000; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; border-bottom: 1px solid var(--border); }
+        .panel-content { flex: 1; overflow-y: auto; padding: 10px; font-family: monospace; font-size: 12px; color: #ccc; }
+        .log-error { color: var(--error); border-bottom: 1px solid #333; padding: 4px 0; }
+        .log-info { color: var(--success); border-bottom: 1px solid #333; padding: 4px 0; }
+
+        /* SETTINGS PANEL */
+        .settings-panel {
+            height: 300px; background: var(--bg-panel); border-top: 1px solid var(--border);
+            position: absolute; bottom: 0; width: 100%; z-index: 26;
+            display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.3s, background 0.3s;
+        }
+        .settings-panel.open { transform: translateY(0); }
+        .settings-content { flex: 1; overflow-y: auto; padding: 20px; }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .setting-label {
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+        .setting-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #27272a;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .toggle-switch.active { background: var(--primary); }
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .toggle-switch.active .toggle-slider { transform: translateX(24px); }
+
+        .setting-select {
+            background: #27272a;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        /* PREVIEW OVERLAY */
+        .preview-panel {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff; z-index: 30; transform: translateY(100%);
+            transition: transform 0.3s; display: flex; flex-direction: column;
+        }
+        .preview-panel.open { transform: translateY(0); }
+        .preview-bar {
+            height: 40px; background: #111; display: flex; align-items: center; 
+            justify-content: space-between; padding: 0 10px; color: #fff;
+        }
+        iframe { flex: 1; width: 100%; border: none; background: #fff; }
+
+        /* CONTEXT MENU */
+        .context-menu {
+            position: absolute; background: var(--bg-panel); border: 1px solid var(--border);
+            width: 150px; display: none; flex-direction: column; z-index: 100;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); border-radius: 4px;
+        }
+        .ctx-item { padding: 8px 12px; font-size: 0.85rem; cursor: pointer; color: var(--text-muted); }
+        .ctx-item:hover { background: var(--primary); color: #fff; }
+
+        /* MODALS */
+        .modal-backdrop {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100;
+            display: none; align-items: center; justify-content: center; backdrop-filter: blur(2px);
+        }
+        .modal-backdrop.active { display: flex; }
+        .modal { background: var(--bg-panel); padding: 20px; border-radius: 8px; width: 90%; max-width: 500px; border: 1px solid var(--border); }
+        .modal h3 { margin-bottom: 15px; color: #fff; }
+        .modal input { width: 100%; padding: 10px; background: #000; border: 1px solid var(--border); color: #fff; margin-bottom: 15px; border-radius: 4px; }
+        .template-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .template-card {
+            background: #27272a; padding: 15px; border: 1px solid var(--border); border-radius: 6px;
+            cursor: pointer; text-align: center; font-size: 0.9rem; transition: 0.2s;
+        }
+        .template-card:hover { border-color: var(--primary); background: #3f3f46; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar { position: absolute; height: 100%; transform: translateX(-100%); box-shadow: 10px 0 20px rgba(0,0,0,0.5); }
+            .sidebar.show { transform: translateX(0); }
+            .logo span { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="ctxMenu" class="context-menu">
+        <div class="ctx-item" onclick="UI.ctxRename()">Rename</div>
+        <div class="ctx-item" onclick="UI.ctxCopy()">Copy</div>
+        <div class="ctx-item" onclick="UI.ctxMove()">Move to Folder</div>
+        <div class="ctx-item" onclick="UI.ctxDownload()">Download File</div>
+        <div class="ctx-item" onclick="UI.ctxDelete()" style="color:#ef4444">Delete</div>
+    </div>
+
+    <input type="file" id="codeImport" multiple accept=".html,.css,.js,.txt,.md" style="display:none" onchange="Project.handleCodeImport(this)">
+    <input type="file" id="mediaUpload" multiple accept="image/*" style="display:none" onchange="Project.handleMediaUpload(this)">
+
+    <div id="modalOverlay" class="modal-backdrop">
+        <div class="modal" id="modalContent"></div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <button class="icon-btn" onclick="UI.toggleSidebar()"><i class="ri-menu-line"></i></button>
+            <i class="ri-code-box-line"></i> <span>Beyoneer<sup style="font-size:0.6em; margin-left:2px; color:#666">V1.12</sup></span>
+        </div>
+        <div class="toolbar">
+            <button class="icon-btn" onclick="UI.toggleSettings()" title="Settings"><i class="ri-settings-3-line"></i></button>
+            <button class="icon-btn" onclick="UI.togglePanel()" title="Debugger"><i class="ri-terminal-box-line"></i></button>
+            <button onclick="Project.downloadZip()"><i class="ri-download-cloud-line"></i></button>
+            <button class="primary" onclick="Compiler.run('index.html')"><i class="ri-play-fill"></i> Run</button>
+        </div>
+    </header>
+
+    <div class="workspace">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <select id="projectDropdown" onchange="Project.switch(this.value)"></select>
+                <div class="sidebar-actions">
+                    <button class="icon-btn" onclick="UI.showNewFileModal()" title="New File"><i class="ri-file-add-line"></i></button>
+                    <button class="icon-btn" onclick="UI.showNewFolderModal()" title="New Folder"><i class="ri-folder-add-line"></i></button>
+                    <button class="icon-btn" onclick="UI.triggerCodeImport()" title="Import (.html, .css, .js, .txt, .md)"><i class="ri-upload-2-line" style="color:var(--text-main)"></i></button>
+                    <button class="icon-btn" onclick="UI.triggerMediaUpload()" title="Upload Image"><i class="ri-image-add-line" style="color:var(--text-main)"></i></button>
+                    <button class="icon-btn" onclick="UI.showTemplates()" style="color:var(--primary)" title="Templates"><i class="ri-add-circle-line"></i></button>
+                    <button class="icon-btn" onclick="Project.renameCurrent()" title="Rename Project"><i class="ri-edit-line"></i></button>
+                    <button class="icon-btn" onclick="Project.deleteCurrent()" style="color:#ef4444" title="Delete Project"><i class="ri-delete-bin-line"></i></button>
+                </div>
+            </div>
+            <div class="file-explorer" id="fileList"></div>
+            <div style="padding:10px; font-size:0.7rem; color:#555; text-align:center; border-top:1px solid #222;">
+                MagmaMinesTeam<br>help.magmamine@gmail.com
+            </div>
+        </div>
+
+        <div class="editor-wrapper" id="editorArea">
+            <div class="tab-bar" id="tabBar"></div>
+            <textarea id="codeEditor"></textarea>
+            <div id="imageViewer" class="image-preview"></div>
+            <div id="markdownPreview" class="markdown-preview"></div>
+
+            <div class="settings-panel" id="settingsPanel">
+                <div class="panel-header">
+                    <div style="display:flex;gap:6px;align-items:center">
+                        <span><i class="ri-settings-3-line"></i> Settings</span>
+                    </div>
+                    <i class="ri-close-line" style="cursor:pointer" onclick="UI.toggleSettings()"></i>
+                </div>
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Pro UI (Black Theme)</div>
+                            <div class="setting-desc">Ultra dark black interface</div>
+                        </div>
+                        <div class="toggle-switch" id="proUIToggle" onclick="Settings.toggleProUI()">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Color Hex Squares</div>
+                            <div class="setting-desc">Show color swatches in code</div>
+                        </div>
+                        <div class="toggle-switch active" id="hexSquareToggle" onclick="Settings.toggleHexSquare()">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Show File Size</div>
+                            <div class="setting-desc">Display file sizes in tree</div>
+                        </div>
+                        <div class="toggle-switch" id="fileSizeToggle" onclick="Settings.toggleFileSize()">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Animations</div>
+                            <div class="setting-desc">Enable UI transitions</div>
+                        </div>
+                        <div class="toggle-switch active" id="animationsToggle" onclick="Settings.toggleAnimations()">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Editor Font Size</div>
+                            <div class="setting-desc">Adjust code editor text size</div>
+                        </div>
+                        <select class="setting-select" id="fontSizeSelect" onchange="Settings.changeFontSize(this.value)">
+                            <option value="12">Small (12px)</option>
+                            <option value="14" selected>Medium (14px)</option>
+                            <option value="16">Large (16px)</option>
+                            <option value="18">Extra Large (18px)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-panel" id="bottomPanel">
+                <div class="panel-header">
+                    <div style="display:flex;gap:6px;align-items:center">
+                        <span><i class="ri-bug-line"></i> Debugger & Console</span>
+                    </div>
+                    <div style="display:flex;gap:6px">
+                        <button onclick="UI.clearConsole()" style="font-size:11px;padding:4px 8px;border-radius:6px;background:#27272a;border:1px solid #333;color:#fff">Clear</button>
+                        <i class="ri-close-line" style="cursor:pointer" onclick="UI.togglePanel()"></i>
+                    </div>
+                </div>
+                <div class="panel-content" id="debugContent">
+                    <div style="color:#555">Console ready... logs and errors will appear here.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-panel" id="previewPanel">
+            <div class="preview-bar">
+                <button class="icon-btn" onclick="UI.closePreview()"><i class="ri-arrow-left-line"></i> Back</button>
+                <span id="previewUrl" style="font-size:0.8rem; color:#888;">index.html</span>
+                <button class="icon-btn" onclick="Compiler.refresh()"><i class="ri-refresh-line"></i></button>
+            </div>
+            <iframe id="appFrame"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // --- SETTINGS SYSTEM ---
+        const Settings = {
+            data: JSON.parse(localStorage.getItem('beyoneer_settings')) || {
+                proUI: false,
+                hexSquare: true,
+                fileSize: false,
+                animations: true,
+                fontSize: 14
+            },
+            
+            save: () => {
+                localStorage.setItem('beyoneer_settings', JSON.stringify(Settings.data));
+            },
+
+            load: () => {
+                if (Settings.data.proUI) document.body.classList.add('pro-ui');
+                if (!Settings.data.animations) document.body.classList.add('no-animations');
+                
+                document.getElementById('proUIToggle').classList.toggle('active', Settings.data.proUI);
+                document.getElementById('hexSquareToggle').classList.toggle('active', Settings.data.hexSquare);
+                document.getElementById('fileSizeToggle').classList.toggle('active', Settings.data.fileSize);
+                document.getElementById('animationsToggle').classList.toggle('active', Settings.data.animations);
+                document.getElementById('fontSizeSelect').value = Settings.data.fontSize;
+                
+                editor.getWrapperElement().style.fontSize = Settings.data.fontSize + 'px';
+            },
+
+            toggleProUI: () => {
+                Settings.data.proUI = !Settings.data.proUI;
+                document.body.classList.toggle('pro-ui', Settings.data.proUI);
+                document.getElementById('proUIToggle').classList.toggle('active', Settings.data.proUI);
+                Settings.save();
+            },
+
+            toggleHexSquare: () => {
+                Settings.data.hexSquare = !Settings.data.hexSquare;
+                document.getElementById('hexSquareToggle').classList.toggle('active', Settings.data.hexSquare);
+                if (Settings.data.hexSquare) {
+                    applyColorSquares();
+                } else {
+                    clearMarks();
+                }
+                Settings.save();
+            },
+
+            toggleFileSize: () => {
+                Settings.data.fileSize = !Settings.data.fileSize;
+                document.getElementById('fileSizeToggle').classList.toggle('active', Settings.data.fileSize);
+                UI.renderFileTree();
+                Settings.save();
+            },
+
+            toggleAnimations: () => {
+                Settings.data.animations = !Settings.data.animations;
+                document.body.classList.toggle('no-animations', !Settings.data.animations);
+                document.getElementById('animationsToggle').classList.toggle('active', Settings.data.animations);
+                Settings.save();
+            },
+
+            changeFontSize: (size) => {
+                Settings.data.fontSize = parseInt(size);
+                editor.getWrapperElement().style.fontSize = size + 'px';
+                editor.refresh();
+                Settings.save();
+            }
+        };
+
+        // --- CORE & STORAGE ---
+        const DB = {
+            projects: JSON.parse(localStorage.getItem('beyoneer_v4_data')) || {},
+            activeId: localStorage.getItem('beyoneer_v4_active') || null,
+            save: () => {
+                localStorage.setItem('beyoneer_v4_data', JSON.stringify(DB.projects));
+                localStorage.setItem('beyoneer_v4_active', DB.activeId);
+            }
+        };
+
+        const Session = {
+            openTabs: [],
+            activeFile: null,
+            ctxTarget: null,
+            logs: []
+        };
+
+        // --- EDITOR SETUP ---
+        const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
+            theme: 'tomorrow-night-eighties',
+            lineNumbers: true,
+            autoCloseTags: true,
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            lineWrapping: true,
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+            extraKeys: { "Ctrl-Space": "autocomplete" }
+        });
+
+        editor.on('change', () => {
+            if (Session.activeFile && DB.projects[DB.activeId].files[Session.activeFile]) {
+                DB.projects[DB.activeId].files[Session.activeFile].content = editor.getValue();
+                DB.save();
+            }
+            if (Settings.data.hexSquare && Session.activeFile && Session.activeFile.endsWith('.md')) {
+                updateMarkdownPreview();
+            }
+        });
+
+        window.addEventListener('click', () => document.getElementById('ctxMenu').style.display = 'none');
+
+        // COLOR SQUARE LOGIC
+        let marks = [];
+
+        function clearMarks() {
+            marks.forEach(m => m.clear());
+            marks = [];
+        }
+
+        function applyColorSquares() {
+            if (!Settings.data.hexSquare) return;
+            
+            clearMarks();
+            const COLOR_REGEX = /(#(?:[0-9a-fA-F]{3}){1,2}|\b(?:white|black|red|green|blue|yellow|orange|purple|pink|gray|grey|brown|cyan|magenta)\b)/gi;
+            const doc = editor.getDoc();
+            const text = doc.getValue();
+            let match;
+
+            while ((match = COLOR_REGEX.exec(text))) {
+                const start = doc.posFromIndex(match.index);
+                const end = doc.posFromIndex(match.index + match[0].length);
+                const color = match[0];
+
+                const wrap = document.createElement("span");
+                const swatch = document.createElement("span");
+                swatch.className = "cm-color-swatch";
+                swatch.style.background = color;
+
+                wrap.appendChild(swatch);
+                wrap.appendChild(document.createTextNode(color));
+
+                marks.push(editor.markText(start, end, {
+                    replacedWith: wrap,
+                    atomic: true
+                }));
+            }
+        }
+
+        editor.on("changes", () => {
+            if (Settings.data.hexSquare) applyColorSquares();
+        });
+
+        // MARKDOWN PREVIEW
+        function updateMarkdownPreview() {
+            const content = editor.getValue();
+            const preview = document.getElementById('markdownPreview');
+            preview.innerHTML = marked.parse(content);
+        }
+
+        // --- PROJECT SYSTEM ---
+        const Project = {
+            init: () => {
+                Settings.load();
+                if (!DB.activeId || !DB.projects[DB.activeId]) Project.create('Welcome Project', 'basic');
+                UI.renderProjectList();
+                UI.renderFileTree();
+                const first = Object.keys(DB.projects[DB.activeId].files)[0];
+                if (first) Project.openFile(first);
+                console.log("Beyoneer v1.12 Loaded");
+            },
+
+            create: (name, template) => {
+                const id = 'p_' + Date.now();
+                let files = {};
+                
+                if (template === 'basic') {
+                    files = {
+                        'index.html': { content: '<h1>Hello Beyoneer</h1>\n<p>Start coding...</p>', type: 'html' },
+                        'css/style.css': { content: 'body { background: #111; color: white; font-family: sans-serif; }', type: 'css' },
+                        'js/app.js': { content: 'console.log("App loaded");', type: 'js' },
+                        'README.md': { content: '# My Project\n\nWelcome to your new project!\n\n## Getting Started\n\nEdit files and click Run to preview.', type: 'md' }
+                    };
+                } else if (template === 'bootstrap') {
+                    files = {
+                        'index.html': { content: '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">\n<div class="container mt-5">\n  <div class="alert alert-primary">Bootstrap Ready!</div>\n</div>', type: 'html' }
+                    }
+                } else if (template === 'tailwind') {
+                    files = {
+                        'index.html': { content: '<script src="https://cdn.tailwindcss.com"><\/script>\n<body class="bg-gray-900 text-white flex items-center justify-center h-screen">\n  <div class="text-center p-10 bg-gray-800 rounded-lg shadow-xl">\n    <h1 class="text-4xl font-bold text-blue-500 mb-4">Tailwind CSS</h1>\n    <p>Ready to build!</p>\n  </div>\n</body>', type: 'html' }
+                    }
+                } else if (template === 'p5') {
+                    files = {
+                        'index.html': { content: '<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"><\/script>\n<script src="sketch.js"><\/script>', type: 'html' },
+                        'sketch.js': { content: 'function setup() {\n  createCanvas(windowWidth, windowHeight);\n}\n\nfunction draw() {\n  background(20);\n  fill(255, 0, 0);\n  ellipse(mouseX, mouseY, 50, 50);\n}', type: 'js' }
+                    }
+                } else if (template === 'three') {
+                    files = {
+                        'index.html': { content: '<style>body{margin:0}</style>\n<script type="module">\n import * as THREE from "https://unpkg.com/three/build/three.module.js";\n const scene = new THREE.Scene();\n const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);\n const renderer = new THREE.WebGLRenderer();\n renderer.setSize(window.innerWidth, window.innerHeight);\n document.body.appendChild(renderer.domElement);\n const geometry = new THREE.BoxGeometry();\n const material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe:true});\n const cube = new THREE.Mesh(geometry, material);\n scene.add(cube);\n camera.position.z = 5;\n function animate() {\n  requestAnimationFrame(animate);\n  cube.rotation.x += 0.01;\n  cube.rotation.y += 0.01;\n  renderer.render(scene, camera);\n }\n animate();\n<\/script>', type: 'html' }
+                    }
+                }
+
+                DB.projects[id] = { name, files };
+                DB.activeId = id;
+                DB.save();
+                UI.renderProjectList();
+                Project.switch(id);
+                return id;
+            },
+
+            handleCodeImport: (input) => {
+                const fileList = input.files;
+                if(fileList.length === 0) return;
+                
+                Array.from(fileList).forEach(f => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const name = f.name;
+                        const ext = name.split('.').pop();
+                        DB.projects[DB.activeId].files[name] = {
+                            content: e.target.result,
+                            type: ext
+                        };
+                        DB.save();
+                        UI.renderFileTree();
+                    };
+                    reader.readAsText(f);
+                });
+                input.value = '';
+            },
+
+            handleMediaUpload: (input) => {
+                const fileList = input.files;
+                if(fileList.length === 0) return;
+
+                Array.from(fileList).forEach(f => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const name = "assets/" + f.name;
+                        const ext = f.name.split('.').pop();
+                        
+                        DB.projects[DB.activeId].files[name] = {
+                            content: e.target.result,
+                            type: ext
+                        };
+                        DB.save();
+                        UI.renderFileTree();
+                    };
+                    reader.readAsDataURL(f);
+                });
+                input.value = '';
+            },
+
+            switch: (id) => {
+                DB.activeId = id;
+                Session.openTabs = [];
+                Session.activeFile = null;
+                DB.save();
+                UI.renderFileTree();
+                UI.renderTabs();
+                const first = Object.keys(DB.projects[id].files)[0];
+                if (first) Project.openFile(first);
+            },
+
+            openFile: (path) => {
+                const file = DB.projects[DB.activeId].files[path];
+                if (!file) return;
+
+                Session.activeFile = path;
+                if (!Session.openTabs.includes(path)) Session.openTabs.push(path);
+                
+                UI.renderTabs();
+                UI.highlightTree(path);
+                
+                const ext = path.split('.').pop().toLowerCase();
+                const viewer = document.getElementById('imageViewer');
+                const mdPreview = document.getElementById('markdownPreview');
+                const wrapper = document.querySelector('.CodeMirror');
+
+                viewer.style.display = 'none';
+                mdPreview.style.display = 'none';
+                wrapper.style.display = 'block';
+
+                if (['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'bmp'].includes(ext)) {
+                    wrapper.style.display = 'none';
+                    viewer.style.display = 'flex';
+                    viewer.innerHTML = `<img src="${file.content}" title="${path}">`;
+                } else if (ext === 'md') {
+                    let mode = 'markdown';
+                    editor.setOption('mode', mode);
+                    editor.setValue(file.content);
+                    editor.refresh();
+                    
+                    mdPreview.style.display = 'block';
+                    mdPreview.innerHTML = marked.parse(file.content);
+                } else {
+                    let mode = 'xml';
+                    if (ext === 'js') mode = 'javascript';
+                    if (ext === 'css') mode = 'css';
+                    if (ext === 'html') mode = 'htmlmixed';
+                    editor.setOption('mode', mode);
+                    editor.setValue(file.content);
+                    editor.refresh();
+                    
+                    setTimeout(() => {
+                        if (Settings.data.hexSquare) applyColorSquares();
+                    }, 100);
+                }
+
+                if(window.innerWidth < 768) document.getElementById('sidebar').classList.remove('show');
+            },
+
+            renameCurrent: () => {
+                const p = DB.projects[DB.activeId];
+                const newName = prompt("Rename project:", p.name);
+                if(newName && newName.trim()) {
+                    p.name = newName.trim();
+                    DB.save();
+                    UI.renderProjectList();
+                }
+            },
+
+            deleteCurrent: () => {
+                if(confirm("Delete entire project?")) {
+                    delete DB.projects[DB.activeId];
+                    const ids = Object.keys(DB.projects);
+                    if(ids.length > 0) DB.activeId = ids[0];
+                    else Project.create('New Project', 'basic');
+                    DB.save();
+                    Project.init();
+                }
+            },
+            
+            downloadZip: () => {
+                const zip = new JSZip();
+                const files = DB.projects[DB.activeId].files;
+                Object.keys(files).forEach(path => {
+                   const f = files[path];
+                   if(path.endsWith('.keep')) return;
+                   
+                   const ext = path.split('.').pop().toLowerCase();
+                   if(['png','jpg','jpeg','gif'].includes(ext) && f.content.startsWith('data:image')) {
+                       zip.file(path, f.content.split(',')[1], {base64:true});
+                   } else {
+                       zip.file(path, f.content);
+                   }
+                });
+                zip.generateAsync({type:"blob"}).then(c => saveAs(c, DB.projects[DB.activeId].name + ".zip"));
+            }
+        };
+
+        // --- UI RENDERER ---
+        const UI = {
+            toggleSidebar: () => document.getElementById('sidebar').classList.toggle('show'),
+            togglePanel: () => {
+                const panel = document.getElementById('bottomPanel');
+                const settings = document.getElementById('settingsPanel');
+                settings.classList.remove('open');
+                panel.classList.toggle('open');
+            },
+            toggleSettings: () => {
+                const panel = document.getElementById('bottomPanel');
+                const settings = document.getElementById('settingsPanel');
+                panel.classList.remove('open');
+                settings.classList.toggle('open');
+            },
+            closePreview: () => document.getElementById('previewPanel').classList.remove('open'),
+            
+            triggerCodeImport: () => document.getElementById('codeImport').click(),
+            triggerMediaUpload: () => document.getElementById('mediaUpload').click(),
+
+            renderProjectList: () => {
+                const s = document.getElementById('projectDropdown');
+                s.innerHTML = '';
+                Object.keys(DB.projects).forEach(id => {
+                    const opt = document.createElement('option');
+                    opt.value = id; opt.text = DB.projects[id].name;
+                    if(id === DB.activeId) opt.selected = true;
+                    s.appendChild(opt);
+                });
+            },
+
+            getFileSize: (content) => {
+                const bytes = new Blob([content]).size;
+                if (bytes < 1024) return bytes + ' B';
+                if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+                return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+            },
+
+            renderFileTree: () => {
+                const list = document.getElementById('fileList');
+                list.innerHTML = '';
+                const files = DB.projects[DB.activeId].files;
+                
+                const tree = {};
+                Object.keys(files).sort().forEach(path => {
+                    const parts = path.split('/');
+                    let current = tree;
+                    parts.forEach((part, i) => {
+                        if(i === parts.length -1) current[part] = 'FILE';
+                        else {
+                            if(!current[part]) current[part] = {};
+                            current = current[part];
+                        }
+                    });
+                });
+
+                function build(obj, prefix, indent) {
+                    let html = '';
+                    Object.keys(obj).forEach(key => {
+                        const fullPath = prefix + key;
+                        if(obj[key] === 'FILE') {
+                            if(key === '.keep') return;
+                            
+                            let icon = 'ri-file-text-line';
+                            const ext = key.split('.').pop().toLowerCase();
+                            if(ext === 'html') icon = 'ri-html5-fill';
+                            else if(ext === 'css') icon = 'ri-css3-fill';
+                            else if(ext === 'js') icon = 'ri-javascript-fill';
+                            else if(ext === 'md') icon = 'ri-markdown-line';
+                            else if(['png','jpg','jpeg','gif'].includes(ext)) icon = 'ri-image-fill';
+                            
+                            let style = `padding-left:${indent * 15 + 10}px;`;
+                            let color = '';
+                            if(ext === 'html') color = 'color:#e44d26;';
+                            if(ext === 'css') color = 'color:#2965f1;';
+                            if(ext === 'js') color = 'color:#f0db4f;';
+                            if(ext === 'md') color = 'color:#9b59b6;';
+
+                            const fileContent = files[fullPath].content || '';
+                            const sizeText = Settings.data.fileSize ? `<span class="file-size">${UI.getFileSize(fileContent)}</span>` : '';
+
+                            html += `<div class="tree-node" id="node-${fullPath.replace(/\//g,'-').replace(/\./g,'-')}" 
+                                        onclick="Project.openFile('${fullPath}')" 
+                                        oncontextmenu="UI.showCtx(event, '${fullPath}', false)"
+                                        style="${style}">
+                                        <i class="${icon}" style="${color}"></i> ${key}
+                                        ${sizeText}
+                                     </div>`;
+                        } else {
+                            html += `<div>
+                                        <div class="tree-node folder-header" 
+                                            onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.arrow').classList.toggle('rotate')"
+                                            oncontextmenu="UI.showCtx(event, '${fullPath}', true)"
+                                            style="padding-left:${indent * 15 + 10}px">
+                                            <i class="ri-arrow-right-s-line arrow"></i>
+                                            <i class="ri-folder-fill" style="color:var(--folder-color)"></i> ${key}
+                                        </div>
+                                        <div class="folder-content open">${build(obj[key], fullPath + '/', indent + 1)}</div>
+                                     </div>`;
+                        }
+                    });
+                    return html;
+                }
+                list.innerHTML = build(tree, '', 0);
+                if(Session.activeFile) UI.highlightTree(Session.activeFile);
+            },
+
+            highlightTree: (path) => {
+                document.querySelectorAll('.tree-node').forEach(e => e.classList.remove('active'));
+                const el = document.getElementById(`node-${path.replace(/\//g,'-').replace(/\./g,'-')}`);
+                if(el) el.classList.add('active');
+            },
+
+            renderTabs: () => {
+                const b = document.getElementById('tabBar');
+                b.innerHTML = '';
+                Session.openTabs.forEach(path => {
+                    const d = document.createElement('div');
+                    d.className = `tab ${path === Session.activeFile ? 'active' : ''}`;
+                    
+                    let icon = 'ri-file-code-line';
+                    const ext = path.split('.').pop().toLowerCase();
+                    if(ext === 'html') icon = 'ri-html5-fill';
+                    if(ext === 'css') icon = 'ri-css3-fill';
+                    if(ext === 'js') icon = 'ri-javascript-fill';
+                    if(ext === 'md') icon = 'ri-markdown-line';
+                    if(['png','jpg','jpeg','gif'].includes(ext)) icon = 'ri-image-fill';
+                    
+                    d.innerHTML = `<i class="${icon}"></i> ${path.split('/').pop()} <i class="ri-close-line tab-close" onclick="UI.closeTab(event, '${path}')"></i>`;
+                    d.onclick = () => Project.openFile(path);
+                    b.appendChild(d);
+                });
+            },
+
+            closeTab: (e, path) => {
+                if(e) e.stopPropagation();
+                Session.openTabs = Session.openTabs.filter(p => p !== path);
+                if(Session.activeFile === path) {
+                    const next = Session.openTabs[Session.openTabs.length - 1];
+                    if(next) Project.openFile(next);
+                    else {
+                        editor.setValue('');
+                        Session.activeFile = null;
+                        document.getElementById('imageViewer').style.display = 'none';
+                        document.getElementById('markdownPreview').style.display = 'none';
+                        document.querySelector('.CodeMirror').style.display = 'block';
+                    }
+                } else UI.renderTabs();
+            },
+
+            showCtx: (e, path, isFolder) => {
+                e.preventDefault();
+                e.stopPropagation();
+                Session.ctxTarget = path;
+                Session.ctxIsFolder = isFolder;
+                const m = document.getElementById('ctxMenu');
+                m.style.display = 'flex';
+                m.style.left = e.pageX + 'px';
+                m.style.top = e.pageY + 'px';
+            },
+
+            ctxRename: () => {
+                const oldPath = Session.ctxTarget;
+                const isFolder = Session.ctxIsFolder;
+                const newName = prompt(`Rename ${isFolder ? 'folder' : 'file'} to:`, oldPath);
+
+                if (newName && newName !== oldPath) {
+                    const files = DB.projects[DB.activeId].files;
+
+                    if (isFolder) {
+                        Object.keys(files).forEach(key => {
+                            if (key.startsWith(oldPath + '/')) {
+                                const newKey = key.replace(oldPath, newName);
+                                files[newKey] = files[key];
+                                delete files[key];
+                            }
+                        });
+                        
+                        Session.openTabs = Session.openTabs.map(t => t.startsWith(oldPath + '/') ? t.replace(oldPath, newName) : t);
+                        if(Session.activeFile && Session.activeFile.startsWith(oldPath + '/')) {
+                            Session.activeFile = Session.activeFile.replace(oldPath, newName);
+                        }
+                    } else {
+                        if (files[oldPath]) {
+                            files[newName] = files[oldPath];
+                            delete files[oldPath];
+                            
+                            const idx = Session.openTabs.indexOf(oldPath);
+                            if(idx > -1) Session.openTabs[idx] = newName;
+                            if(Session.activeFile === oldPath) Session.activeFile = newName;
+                        }
+                    }
+
+                    DB.save();
+                    UI.renderFileTree();
+                    UI.renderTabs();
+                }
+                document.getElementById('ctxMenu').style.display = 'none';
+            },
+
+            ctxDelete: () => {
+                const target = Session.ctxTarget;
+                const isFolder = Session.ctxIsFolder;
+                const msg = isFolder ? `Delete folder "${target}" and all its contents?` : `Delete "${target}"?`;
+
+                if(confirm(msg)) {
+                    const files = DB.projects[DB.activeId].files;
+                    
+                    if (isFolder) {
+                        Object.keys(files).forEach(key => {
+                            if (key.startsWith(target + '/')) {
+                                delete files[key];
+                                Session.openTabs = Session.openTabs.filter(t => t !== key);
+                            }
+                        });
+                        if(Session.activeFile && Session.activeFile.startsWith(target + '/')) {
+                            Session.activeFile = null;
+                            editor.setValue('');
+                        }
+                    } else {
+                        delete files[target];
+                        UI.closeTab(null, target);
+                    }
+
+                    DB.save();
+                    UI.renderFileTree();
+                    UI.renderTabs();
+                }
+                document.getElementById('ctxMenu').style.display = 'none';
+            },
+            
+            showNewFileModal: () => {
+                const n = prompt("File Name (e.g. js/script.js or docs/readme.md):");
+                if(n) {
+                    const ext = n.split('.').pop();
+                    DB.projects[DB.activeId].files[n] = { content: '', type: ext };
+                    DB.save();
+                    UI.renderFileTree();
+                    Project.openFile(n);
+                }
+            },
+
+            showNewFolderModal: () => {
+                const n = prompt("Folder Name:");
+                if(n) {
+                    DB.projects[DB.activeId].files[n + '/.keep'] = { content:'', type:'config' };
+                    DB.save();
+                    UI.renderFileTree();
+                }
+            },
+
+            showTemplates: () => {
+                const m = document.getElementById('modalContent');
+                m.innerHTML = `<h3>New Project</h3>
+                <div class="template-grid">
+                    <div class="template-card" onclick="Project.create('My Project', 'basic'); UI.closeModal()">Basic HTML</div>
+                    <div class="template-card" onclick="Project.create('Bootstrap App', 'bootstrap'); UI.closeModal()">Bootstrap 5</div>
+                    <div class="template-card" onclick="Project.create('Tailwind App', 'tailwind'); UI.closeModal()">Tailwind CSS</div>
+                    <div class="template-card" onclick="Project.create('Creative Canvas', 'p5'); UI.closeModal()">P5.js Art</div>
+                    <div class="template-card" onclick="Project.create('3D World', 'three'); UI.closeModal()">Three.js 3D</div>
+                </div>`;
+                document.getElementById('modalOverlay').classList.add('active');
+            },
+            
+            closeModal: () => document.getElementById('modalOverlay').classList.remove('active'),
+            
+            clearConsole: () => {
+                const dc = document.getElementById('debugContent');
+                dc.innerHTML = '<div style="color:#555">Console cleared.</div>';
+            },
+
+            ctxCopy: () => {
+                const path = Session.ctxTarget;
+                const files = DB.projects[DB.activeId].files;
+                if(!files[path]) return;
+
+                const parts = path.split('/');
+                const name = parts.pop();
+                const folder = parts.length ? parts.join('/') + '/' : '';
+                const extIndex = name.lastIndexOf('.');
+                const base = extIndex !== -1 ? name.substring(0, extIndex) : name;
+                const ext = extIndex !== -1 ? name.substring(extIndex) : '';
+
+                let copyName = folder + base + '_copy' + ext;
+                let i = 1;
+                while(files[copyName]) {
+                    copyName = folder + base + '_copy' + i + ext;
+                    i++;
+                }
+
+                files[copyName] = JSON.parse(JSON.stringify(files[path]));
+                DB.save();
+                UI.renderFileTree();
+                alert('Copied as: ' + copyName);
+            },
+
+            ctxMove: () => {
+                const path = Session.ctxTarget;
+                const targetFolder = prompt("Move to folder (e.g. css or assets/img):");
+                if(!targetFolder) return;
+                const files = DB.projects[DB.activeId].files;
+                const name = path.split('/').pop();
+                const newPath = targetFolder.replace(/\/$/, '') + '/' + name;
+                files[newPath] = files[path];
+                delete files[path];
+
+                Session.openTabs = Session.openTabs.map(t => t === path ? newPath : t);
+                if(Session.activeFile === path) Session.activeFile = newPath;
+
+                DB.save();
+                UI.renderFileTree();
+                UI.renderTabs();
+            },
+
+            ctxDownload: () => {
+                const path = Session.ctxTarget;
+                const f = DB.projects[DB.activeId].files[path];
+                if(!f) return;
+
+                let blob;
+                if(f.content.startsWith('data:')) {
+                    const byteString = atob(f.content.split(',')[1]);
+                    const mime = f.content.split(',')[0].split(':')[1].split(';')[0];
+                    const ab = new ArrayBuffer(byteString.length);
+                    const ia = new Uint8Array(ab);
+                    for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+                    blob = new Blob([ab], {type:mime});
+                } else {
+                    blob = new Blob([f.content], {type:'text/plain'});
+                }
+
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = path.split('/').pop();
+                a.click();
+                URL.revokeObjectURL(a.href);
+            }
+        };
+
+        // --- COMPILER & DEBUGGER ---
+        const Compiler = {
+            run: (entry) => {
+                const files = DB.projects[DB.activeId].files;
+                let html = files[entry] ? files[entry].content : '<h1>404</h1>';
+                
+                const dbgScript = `<script>
+                    (function(){
+                        const send = (type, payload) => {
+                            try { window.parent.postMessage({type, ...payload}, '*'); } catch(e){}
+                        };
+
+                        const orig = {
+                            log: console.log,
+                            warn: console.warn,
+                            error: console.error
+                        };
+
+                        console.log = (...args) => { orig.log.apply(console, args); send('log', {msg: args.map(a=>typeof a==='object'?JSON.stringify(a):String(a)).join(' ')}); };
+                        console.warn = (...args) => { orig.warn.apply(console, args); send('warn', {msg: args.join(' ')}); };
+                        console.error = (...args) => { orig.error.apply(console, args); send('err', {msg: args.join(' '), line: 'runtime'}); };
+
+                        window.onerror = function(msg, url, line, col, err){
+                            send('err', {msg: msg, line: line || 'unknown'});
+                        };
+
+                        window.addEventListener('unhandledrejection', e => {
+                            send('err', {msg: e.reason ? e.reason.toString() : 'Unhandled Promise Rejection', line:'promise'});
+                        });
+
+                        document.addEventListener('click', e => {
+                            const a = e.target.closest('a');
+                            if(a && a.getAttribute('href') && !a.getAttribute('href').startsWith('http')) {
+                                e.preventDefault();
+                                send('nav', {path:a.getAttribute('href')});
+                            }
+                        });
+                    })();
+                <\/script>`;
+
+                html = html.replace(/<link[^>]+href=["'](.*?)["'][^>]*>/g, (m, u) => files[u] ? `<style>${files[u].content}</style>` : m);
+                html = html.replace(/<script[^>]+src=["'](.*?)["'][^>]*><\/script>/g, (m, u) => files[u] ? `<script>${files[u].content}<\/script>` : m);
+                html = html.replace(/src=["'](.*?)["']/g, (m, u) => files[u] ? `src="${files[u].content}"` : m);
+                
+                const frame = document.getElementById('appFrame');
+                frame.srcdoc = dbgScript + html;
+                document.getElementById('previewPanel').classList.add('open');
+                document.getElementById('previewUrl').innerText = entry;
+                
+                document.getElementById('debugContent').innerHTML = '';
+            },
+            
+            refresh: () => Compiler.run(document.getElementById('previewUrl').innerText)
+        };
+
+        window.addEventListener('message', e => {
+            const time = new Date().toLocaleTimeString();
+            const dc = document.getElementById('debugContent');
+            if(e.data.type === 'err') {
+                dc.innerHTML += `<div class="log-error">[${time}] ❌ ${e.data.line}: ${e.data.msg}</div>`;
+                document.getElementById('bottomPanel').classList.add('open');
+            }
+            if(e.data.type === 'warn') dc.innerHTML += `<div class="log-error">[${time}] ⚠️ ${e.data.msg}</div>`;
+            if(e.data.type === 'log') dc.innerHTML += `<div class="log-info">[${time}] ℹ️ ${e.data.msg}</div>`;
+            if(e.data.type === 'nav') Compiler.run(e.data.path);
+        });
+
+        window.onload = Project.init;
+    </script>
+</body>
+</html>
