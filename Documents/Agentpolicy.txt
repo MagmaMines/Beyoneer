@@ -1,5 +1,5 @@
-BeyoAgent provides  ai models via "PuterJS".
+BeyoAgent provides AI models through PuterJS.  
 
-If the model not responding after you pay, we are "not" responsible.
+If a model does not respond after payment, we are not responsible.  
 
-PuterJS can go down. Any subscription via puter is not "our responsibility" to provide you Puter JS models.
+PuterJS may experience downtime. Any subscriptions made via Puter are not our responsibility, and we do not guarantee access to PuterJS models.  
