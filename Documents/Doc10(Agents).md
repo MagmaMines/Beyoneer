@@ -2,7 +2,19 @@
 
 https://beyoneer.xyz/agent
 
+---
+
+G-Codes pipeline is a pipeline of agents that works like a team does their work.
+Starts from **R&D ( Research and Development )**.....
+
+and ends in **verification (Bug fixes & optimization)**
+
+
+---
+
+
 **Anthropic**
+
 Claude 4.5 Sonnet
 Latest & smartest
 Claude 3.7 Sonnet
@@ -13,6 +25,7 @@ Claude 3 Haiku
 Fast & lightweight
 
 **OpenAI**
+
 GPT-4o
 Fast & multimodal
 GPT-4o Mini
@@ -20,7 +33,9 @@ Lightweight & cheap
 o1-mini
 Reasoning model
 
+
 **Google**
+
 Gemini 2.0 Flash
 Fast, long context
 Gemini 1.5 Pro
@@ -28,6 +43,7 @@ Gemini 1.5 Pro
 
 
 **Open Source**
+
 Llama 3.1 (405B)
 Meta open source giant
 Llama 3.2 Vision
@@ -37,3 +53,5 @@ Great generalist
 DeepSeek V3
 Excellent at code
 DeepSeek R1
+
+**Webllms and Transformer.JS now also available on [Beyoneer IDE](Beyoneer.xyz)! 👨‍💻🎉**
