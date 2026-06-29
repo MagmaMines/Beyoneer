@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/16d2483b-d0e3-4104-9078-f91e797efd7f"
+  <img src="https://beyoneer.xyz/icon.png"
        width="160"
        style="border-radius:24px"
        alt="Beyoneer IDE Logo">
